@@ -5,15 +5,15 @@ import { Outlet } from "react-router-dom";
 export function AuthLayout() {
   return (
     <div className="flex w-full h-full">
-      <div className="w-1/2 h-full flex items-center justify-center flex-col gap-16">
+      <div className="w-full h-full flex items-center justify-center flex-col lg:gap-16 lg:w-1/2">
         <Logo className='text-gray-500 h-6' />
 
-        <div className="mt-16 w-full max-w-md">
+        <div className="mt-16 w-full max-w-[504px] px-8 lg:px-0">
           <Outlet />
         </div>
       </div>
 
-      <div className="w-1/2 h-full  justify-center items-center p-8 hidden">
+      <div className="w-1/2 h-full justify-center items-center p-8 hidden lg:flex">
         <img
           src={illustration}
           alt=""
