@@ -3,14 +3,15 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { useLoginController } from "./useLoginController";
 
-
 export function Login() {
-  const { handleSubmit, register } = useLoginController();
+  const { handleSubmit, register, errors } = useLoginController();
 
-	return (
-		<>
+  return (
+    <>
       <header className="flex flex-col items-center gap-4 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 tracking-[-1px]">Entre em sua conta</h1>
+        <h1 className="text-2xl font-bold text-gray-900 tracking-[-1px]">
+          Entre em sua conta
+        </h1>
 
         <p className="space-x-2">
           <span className="text-base text-gray-700 font-normal tracking-[-0.5px]">
@@ -27,13 +28,23 @@ export function Login() {
       </header>
 
       <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
-        <Input type="email" placeholder="E-mail" {...register('email')} />
-        <Input type="password" placeholder="Senha" {...register('password')} />
+        <Input
+          type="email"
+          placeholder="E-mail"
+          error={errors?.email?.message}
+          {...register("email")}
+        />
 
-        <Button type="submit">
-          Entrar
-        </Button>
+        <Input
+          type="password"
+          placeholder="Senha"
+          error={errors?.password?.message}
+          {...register("password")}
+
+        />
+
+        <Button type="submit">Entrar</Button>
       </form>
     </>
-	)
+  );
 }
