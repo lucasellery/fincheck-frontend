@@ -4,10 +4,10 @@ import { Button } from "../../components/Button";
 import { useRegisterController } from "./useRegisterController";
 
 export function Register() {
-  const { errors, handleSubmit, register } = useRegisterController();
+  const { errors, handleSubmit, register, isPending: isLoading } = useRegisterController();
 
-	return (
-		<>
+  return (
+    <>
       <header className="flex flex-col items-center gap-4">
         <h1 className="text-2xl font-bold text-gray-900 tracking-[-1px]">Crie sua conta</h1>
 
@@ -30,11 +30,13 @@ export function Register() {
         className="mt-[60px] flex flex-col gap-4"
       >
         <Input
+          type="text"
           placeholder="Nome"
           error={errors.name?.message}
           {...register("name")}
         />
         <Input
+          type="email"
           placeholder="E-mail"
           error={errors.email?.message}
           {...register("email")}
@@ -43,12 +45,13 @@ export function Register() {
           placeholder="Senha"
           error={errors.password?.message}
           {...register("password")}
+          type="password"
         />
 
-        <Button type="submit">
+        <Button type="submit" isLoading={isLoading}>
           Criar conta
         </Button>
       </form>
     </>
-	)
+  )
 }
