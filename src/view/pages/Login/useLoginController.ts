@@ -5,6 +5,9 @@ import { useMutation } from "@tanstack/react-query";
 import { authService } from "../../../app/services/authService";
 import { SigninParams } from "../../../app/services/authService/signin";
 import toast from "react-hot-toast";
+import { useAuth } from "../../../app/hooks/useAuth";
+
+type FormData = z.infer<typeof schema>;
 
 const schema = z.object({
   email: z
@@ -16,8 +19,6 @@ const schema = z.object({
     .nonempty("Senha é obrigatória")
     .min(8, "A senha deve conter pelo menos 8 dígitos"),
 });
-
-type FormData = z.infer<typeof schema>;
 
 export function useLoginController() {
   const {
@@ -34,9 +35,13 @@ export function useLoginController() {
     },
   });
 
+  const { signin } = useAuth();
+
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      mutateAsync(data);
+      const { accessToken } = await mutateAsync(data);
+
+      signin(accessToken);
     } catch (err) {
       toast.error("Credenciais inválidas!");
     }
